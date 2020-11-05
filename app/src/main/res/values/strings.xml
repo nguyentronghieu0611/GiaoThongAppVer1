@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">GiaoThongAppNew</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mật khẩu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="create_new">Click để đăng ký</string>
+    <string name="not_register">Not Register?</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="register">Đăng ký</string>
+    <string name="name_error">Vui lòng nhập tên</string>
+    <string name="phone_error">Please enter your phone number</string>
+    <string name="email_error">Vui lòng nhập email</string>
+    <string name="error_invalid_email">Email không hợp lệ</string>
+    <string name="password_error">Vui lòng nhập mật khẩu</string>
+    <string name="error_invalid_password">Mật khẩu tối thiểu 6 ký tự</string>
+    <string name="save">LƯU</string>
+    <string name="please_grant_read">Vui lòng cấp quyền đọc bộ nhớ</string>
+    <string name="please_grant_write">Vui lòng cấp quyền ghi bộ nhớ</string>
+    <string name="update">Cập nhật</string>
+    <string name="re_prompt_password">Nhập lại mật khẩu</string>
+    <string name="changepass">Đổi mật khẩu</string>
+    <string name="pass_not_match">Mật khẩu không trùng khớp</string>
+</resources>
