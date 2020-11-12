@@ -15,6 +15,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.giaothongappnew.R;
 import com.example.giaothongappnew.model.Error;
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
     SharedPreferences preferences;
     int user_id=0;
     SearchView searchView;
+    private  NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initControl(View view){
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         btnAdd = view.findViewById(R.id.btnAdd);
         layout = view.findViewById(R.id.home_container);
         preferences = getActivity().getSharedPreferences(Utils.MY_REF,MODE_PRIVATE);
@@ -71,14 +75,14 @@ public class HomeFragment extends Fragment {
         lvError.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment,new ErrorFragment(listError.get(position),db,role)).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,new ErrorFragment(listError.get(position),db,role)).addToBackStack("abc").commit();
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment,new ErrorFragment(null,db,role)).addToBackStack(null).commit();
+                navController.navigate(R.id.layout_add);
             }
         });
     }

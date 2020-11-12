@@ -22,6 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
         <View style="@style/Divider"/>
         <LinearLayout
+            android:id="@+id/layoutInfo"
             android:padding="5dp"
             android:weightSum="10"
             android:layout_width="match_parent"
@@ -46,6 +47,7 @@
         </LinearLayout>
         <View style="@style/Divider"/>
         <LinearLayout
+            android:id="@+id/layoutChangePass"
             android:padding="5dp"
             android:weightSum="10"
             android:layout_width="match_parent"
@@ -70,6 +72,7 @@
         </LinearLayout>
         <View style="@style/Divider"/>
         <LinearLayout
+            android:id="@+id/layoutLogout"
             android:padding="5dp"
             android:weightSum="10"
             android:layout_width="match_parent"
@@ -84,6 +87,30 @@
                 android:layout_weight="8"
                 android:textSize="22sp"
                 android:text="Đăng xuất"
+                android:layout_width="0dp"
+                android:layout_height="40dp"/>
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_chevron_right_24"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutExit"
+            android:padding="5dp"
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_exit_to_app_24"/>
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_weight="8"
+                android:textSize="22sp"
+                android:text="Thoát"
                 android:layout_width="0dp"
                 android:layout_height="40dp"/>
             <ImageView

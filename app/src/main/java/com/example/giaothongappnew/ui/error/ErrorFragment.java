@@ -50,6 +50,8 @@ public class ErrorFragment extends Fragment {
     DataChange dataChange;
     int role=0;
 
+    public ErrorFragment(){}
+
     public ErrorFragment(Error error, TrafficDatabase db, int role){
         this.error = error;
         this.db = db;
