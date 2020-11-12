@@ -1,6 +1,7 @@
 package com.example.giaothongappnew.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,13 +59,17 @@ public class ErrorAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.imageView = convertView.findViewById(R.id.imgAvatar);
             holder.txtContactName = convertView.findViewById(R.id.txtErrorName);
+            holder.txtErrorDescription = convertView.findViewById(R.id.txtErrorDescription);
+            holder.txtView = convertView.findViewById(R.id.txtView);
             holder.txtIcon = convertView.findViewById(R.id.txtIcon);
             convertView.setTag(holder);
         }
         else
             holder = (ViewHolder) convertView.getTag();
+        holder.txtView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         final Error error = errorList.get(position);
         holder.txtContactName.setText(error.getName());
+        holder.txtErrorDescription.setText(error.getDescription());
         if(error.getImage() != null){
             Glide.with(context).load(error.getImage()).centerCrop().into(holder.imageView);
             holder.imageView.setVisibility(View.VISIBLE);
@@ -78,7 +83,7 @@ public class ErrorAdapter extends BaseAdapter {
     }
 
     static class ViewHolder{
-        TextView txtIcon, txtContactName;
-        CircleImageView imageView;
+        TextView txtContactName,txtErrorDescription, txtView;
+        CircleImageView imageView,txtIcon;
     }
 }

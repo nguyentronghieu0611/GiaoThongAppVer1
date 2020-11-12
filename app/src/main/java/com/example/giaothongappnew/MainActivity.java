@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.giaothongappnew.model.DataChange;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DataChange {
     private final int READ_STORAGE = 146;
     private final int WRITE_STORAGE = 178;
     private NavController navController;
@@ -68,10 +69,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(navController.getCurrentDestination().getId() == R.id.layout_add){
-            navController.navigate(R.id.action_b_to_a);
-        }else{
-            super.onBackPressed();
-        }
+        super.onBackPressed();
+//        if(navController.getCurrentDestination().getId() == R.id.layout_add){
+//            navController.navigate(R.id.action_b_to_a);
+//        }else{
+//            super.onBackPressed();
+//        }
+    }
+
+    @Override
+    public void onErrorChange() {
+
     }
 }

@@ -35,14 +35,16 @@ import com.example.giaothongappnew.model.Error;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.app.Activity.RESULT_OK;
 
 public class ErrorFragment extends Fragment {
     FrameLayout layoutFrame;
-    ImageView imgAvatar;
-    TextView txtIcon;
-    Error error;
-    private Button btnSave;
+    CircleImageView imgAvatar;
+    CircleImageView txtIcon;
+    Error error=null;
+    private Button btnSave,btnDelete;
     private byte[] image;
     EditText edtName, edtDescription;
     TrafficDatabase db;
@@ -50,13 +52,12 @@ public class ErrorFragment extends Fragment {
     DataChange dataChange;
     int role=0;
 
-    public ErrorFragment(){}
-
-    public ErrorFragment(Error error, TrafficDatabase db, int role){
-        this.error = error;
-        this.db = db;
-        this.role = role;
-    }
+//
+//    public ErrorFragment(){
+//        this.error = (Error) getArguments().getSerializable("error");
+//        this.db = (TrafficDatabase) getArguments().getSerializable("db");
+//        this.role = getArguments().getInt("role");
+//    }
 
 
     @Override
@@ -82,7 +83,8 @@ public class ErrorFragment extends Fragment {
                     long a = db.insertError(new Error(edtName.getText().toString(),edtDescription.getText().toString(),image));
                     if(a>0){
                         Toast.makeText(getContext(),"Thành công",Toast.LENGTH_SHORT).show();
-                        dataChange.onErrorChange();
+                        getActivity().onBackPressed();
+//                        dataChange.onErrorChange();
                     }
                     else
                         Toast.makeText(getContext(),"Thất bại",Toast.LENGTH_SHORT).show();
@@ -95,7 +97,8 @@ public class ErrorFragment extends Fragment {
                     long a = db.updateError(error);
                     if(a>0){
                         Toast.makeText(getContext(),"Thành công",Toast.LENGTH_SHORT).show();
-                        dataChange.onErrorChange();
+                        getActivity().onBackPressed();
+//                        dataChange.onErrorChange();
                     }
                     else
                         Toast.makeText(getContext(),"Thất bại",Toast.LENGTH_SHORT).show();
@@ -112,12 +115,29 @@ public class ErrorFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long a = db.deleteError(error.getId());
+                if(a>0){
+                    Toast.makeText(getContext(),"Thành công",Toast.LENGTH_SHORT).show();
+                    getActivity().onBackPressed();
+                }
+                else
+                    Toast.makeText(getContext(),"Thất bại",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initControl(final View view) {
+        this.error = (Error) getArguments().getSerializable("error");
+        this.db = (TrafficDatabase) getArguments().getSerializable("db");
+        this.role = getArguments().getInt("role");
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         assert actionBar != null;
         imgAvatar = view.findViewById(R.id.imgAvatar);
+        btnDelete = view.findViewById(R.id.btnDelete);
         txtIcon = view.findViewById(R.id.txtIcon);
         layoutFrame = view.findViewById(R.id.layoutLeft);
         edtName = view.findViewById(R.id.edtName);
@@ -140,6 +160,8 @@ public class ErrorFragment extends Fragment {
                 Glide.with(getContext()).load(error.getImage()).into(imgAvatar);
             }
         }
+        if(error==null)
+            btnDelete.setVisibility(View.GONE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -164,9 +186,9 @@ public class ErrorFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 //        dataChange = (DataChange) context;
-//    }
+    }
 }

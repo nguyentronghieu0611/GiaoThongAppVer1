@@ -12,10 +12,11 @@ import com.example.giaothongappnew.model.SearchHistory;
 import com.example.giaothongappnew.model.User;
 import com.example.giaothongappnew.model.Error;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrafficDatabase extends SQLiteOpenHelper {
+public class TrafficDatabase extends SQLiteOpenHelper implements Serializable {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Contact.db";

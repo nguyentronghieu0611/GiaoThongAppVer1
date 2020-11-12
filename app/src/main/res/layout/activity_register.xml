@@ -9,7 +9,7 @@
     android:padding="16dp"
     android:id="@+id/layout_register"
     android:scrollbarThumbVertical="@null"
-    tools:context=".view.RegisterActivity">
+    tools:context=".RegisterActivity">
 
 
     <androidx.cardview.widget.CardView
@@ -88,40 +88,40 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:paddingStart="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-                <TextView
-                    android:text="Quyền: "
-                    android:textSize="18dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RadioGroup
-                    android:id="@+id/rdGroup"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <RadioButton
-                        android:textSize="18dp"
-                        android:id="@+id/rdAdmin"
-                        android:text="Quản trị"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:paddingStart="5dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp">-->
+<!--                <TextView-->
+<!--                    android:text="Quyền: "-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/rdGroup"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <RadioButton-->
+<!--                        android:textSize="18dp"-->
+<!--                        android:id="@+id/rdAdmin"-->
+<!--                        android:text="Quản trị"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content" />-->
 
-                    <RadioButton
-                        android:textSize="18dp"
-                        android:id="@+id/rdUser"
-                        android:text="Người dùng"
-                        android:checked="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </RadioGroup>
-            </LinearLayout>
+<!--                    <RadioButton-->
+<!--                        android:textSize="18dp"-->
+<!--                        android:id="@+id/rdUser"-->
+<!--                        android:text="Người dùng"-->
+<!--                        android:checked="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content" />-->
+<!--                </RadioGroup>-->
+<!--            </LinearLayout>-->
 
             <Button
                 android:id="@+id/register"

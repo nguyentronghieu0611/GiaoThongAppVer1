@@ -1,7 +1,9 @@
 package com.example.giaothongappnew.ui.home;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.giaothongappnew.R;
+import com.example.giaothongappnew.model.DataChange;
 import com.example.giaothongappnew.model.Error;
 import com.example.giaothongappnew.adapter.ErrorAdapter;
 import com.example.giaothongappnew.common.Utils;
@@ -31,7 +34,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements DataChange {
     Button btnAdd;
     TrafficDatabase db;
     ListView lvError, lvSearchHistory;
@@ -55,6 +58,11 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+
     private void initControl(View view){
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         btnAdd = view.findViewById(R.id.btnAdd);
@@ -75,25 +83,41 @@ public class HomeFragment extends Fragment {
         lvError.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,new ErrorFragment(listError.get(position),db,role)).addToBackStack("abc").commit();
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,new ErrorFragment(listError.get(position),db,role)).addToBackStack("abc").commit();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("db",db);
+                bundle.putSerializable("error",listError.get(position));
+                bundle.putInt("role",role);
+                navController.navigate(R.id.layout_add,bundle);
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.layout_add);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("db",db);
+                bundle.putInt("role",role);
+                navController.navigate(R.id.layout_add,bundle);
             }
         });
+
+
+
     }
 
     private void initDefaultData(){
         if(db.getError().size()==0){
-            db.insertError(new Error("Lỗi vượt đèn đỏ","Lỗi vượt đèn đỏ",null));
-            db.insertError(new Error("Lỗi không gương","Lỗi không gương",null));
-            db.insertError(new Error("Lỗi quay xe","Lỗi quay xe",null));
-            db.insertError(new Error("Lỗi chở quá người quy định","Lỗi chở quá người quy định",null));
-            db.insertError(new Error("Lỗi chuyển làn","Lỗi chuyển làn",null));
+            db.insertError(new Error("Lỗi vượt đèn đỏ","Lỗi vượt đèn đỏ phạt tiền từ 100.000 - 200.000 vnd",null));
+            db.insertError(new Error("Lỗi không gương","Lỗi không gương phạt tiền từ 50.000 - 100.000 vnd",null));
+            db.insertError(new Error("Lỗi quay xe","Lỗi quay xe phạt tiền từ 200.000 - 300.000 vnd",null));
+            db.insertError(new Error("Lỗi chở quá người quy định","Lỗi chở quá người quy định phạt tiền từ 100.000 - 200.000 vnd",null));
+            db.insertError(new Error("Lỗi chuyển làn","Lỗi chuyển làn phạt tiền từ 100.000 - 200.000 vnd",null));
         }
+    }
+
+    @Override
+    public void onErrorChange() {
+        Log.d("TAG", "onErrorChange: asdasdas");
     }
 }

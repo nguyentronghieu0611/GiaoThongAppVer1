@@ -17,14 +17,7 @@
         android:name="com.example.giaothongappnew.ui.dashboard.DashboardFragment"
         android:label="Cá nhân"
         tools:layout="@layout/fragment_dashboard" >
-        <action android:id="@+id/action_b_to_a"
-            app:destination="@id/layout_add"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/layout_add"
-            app:popUpToInclusive="true"/>
+
     </fragment>
 
     <fragment

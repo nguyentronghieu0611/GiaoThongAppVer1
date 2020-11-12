@@ -24,16 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="120dp">
 
-            <TextView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:visibility="visible"
+                app:civ_circle_background_color="#E83636"
                 android:id="@+id/txtIcon"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@drawable/circle"
-                android:gravity="center"
-                android:text="Ảnh minh họa"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:src="@drawable/traffic_light"
+                android:scaleType="centerCrop"/>
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -104,6 +102,15 @@
         android:layout_margin="20dp"
         android:background="@drawable/button_gradient"
         android:text="@string/save"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_gradient"
+        android:text="@string/delete"
         android:textColor="@android:color/white"
         android:textSize="16sp"/>
 </LinearLayout>

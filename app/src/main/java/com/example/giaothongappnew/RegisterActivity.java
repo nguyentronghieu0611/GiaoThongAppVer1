@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     boolean isNameValid, isEmailValid, isPasswordValid;
     TextInputLayout nameError, emailError, passError;
     ScrollView layout;
-    RadioGroup radioGroup;
+//    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         nameError = (TextInputLayout) findViewById(R.id.nameError);
         emailError = (TextInputLayout) findViewById(R.id.emailError);
         passError = (TextInputLayout) findViewById(R.id.passError);
-        radioGroup = findViewById(R.id.rdGroup);
+//        radioGroup = findViewById(R.id.rdGroup);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +96,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (isNameValid && isEmailValid  && isPasswordValid) {
-            int role = radioGroup.getCheckedRadioButtonId()==R.id.rdAdmin?0:1;
-            long a = db.insertUser(new User(email.getText().toString(),name.getText().toString(),password.getText().toString(),role));
+//            int role = radioGroup.getCheckedRadioButtonId()==R.id.rdAdmin?0:1;
+            long a = db.insertUser(new User(email.getText().toString(),name.getText().toString(),password.getText().toString(),0));
             if(a>0){
                 Utils.showSnackbar("Đăng ký thành công",layout);
                 finish();

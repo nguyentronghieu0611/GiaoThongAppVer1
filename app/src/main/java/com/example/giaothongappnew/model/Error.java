@@ -1,6 +1,8 @@
 package com.example.giaothongappnew.model;
 
-public class Error {
+import java.io.Serializable;
+
+public class Error implements Serializable {
     private int id;
     private String name;
     private String description;
