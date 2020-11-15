@@ -33,10 +33,12 @@ public class TrafficDatabase extends SQLiteOpenHelper implements Serializable {
                 "image" + " BLOB )");
 
         //tao bang muc phat
-        db.execSQL(" CREATE TABLE " + "tblAmercementLevel" + " (" +
-                "error_id" + " INTEGER, " +
-                "vehicle" + " TEXT UNIQUE NOT NULL, " +
-                "amercement" + " TEXT NOT NULL )");
+        db.execSQL("CREATE TABLE tblAmercementLevel (" +
+                "error_id INTEGER NOT NULL," +
+                "vehicle_id INTEGER NOT NULL," +
+                "amercement TEXT NOT NULL," +
+                "PRIMARY KEY (error_id, vehicle_id)" +
+                ")");
 
         //tao bang nguoi dung
         db.execSQL(" CREATE TABLE " + "tblUser" + " (" +
@@ -48,9 +50,11 @@ public class TrafficDatabase extends SQLiteOpenHelper implements Serializable {
 
         //tao bang danh dau nguoi dung
         db.execSQL(" CREATE TABLE " + "tblMarkUser" + " (" +
-                "user_id" + " INTEGER, " +
-                "error_id" + " INTEGER, " +
-                "time" + " TEXT NOT NULL )");
+                "user_id" + " INTEGER , " +
+                "error_id" + " INTEGER , " +
+                "time" + " TEXT NOT NULL, " +
+                "PRIMARY KEY (user_id, error_id)" +
+                ")");
 
         //tao bang lich su tim kiem
         db.execSQL(" CREATE TABLE " + "tblSearchHistory" + " (" +
@@ -208,7 +212,7 @@ public class TrafficDatabase extends SQLiteOpenHelper implements Serializable {
         if(c.moveToFirst()){
             do{
                 int error_id1 = c.getInt(0);
-                String vehical = c.getString(1);
+                int vehical = c.getInt(1);
                 String amercement = c.getString(2);
                 amercementLevel = new AmercementLevel(error_id1,vehical,amercement);
                 listRs.add(amercementLevel);
@@ -221,16 +225,23 @@ public class TrafficDatabase extends SQLiteOpenHelper implements Serializable {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("error_id", amercementLevel.getError_id());
-        values.put("vehicle", amercementLevel.getVehical());
+        values.put("vehicle_id", amercementLevel.getVehical());
         values.put("amercement", amercementLevel.getAmercement());
         return sqLiteDatabase.insert("tblAmercementLevel", null, values);
+    }
+
+    public long updateAmercement(AmercementLevel amercementLevel){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("amercement", amercementLevel.getAmercement());
+        return sqLiteDatabase.update("tblAmercementLevel", values, "error_id=? and vehicle_id=?", new String[]{String.valueOf(amercementLevel.getError_id()),String.valueOf(amercementLevel.getVehical())});
     }
 
 
 
     public long deleteAmercement(AmercementLevel amercementLevel){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        return sqLiteDatabase.delete("tblAmercementLevel","error_id=? and vehical=?",new String[]{String.valueOf(amercementLevel.getError_id()),amercementLevel.getVehical()});
+        return sqLiteDatabase.delete("tblAmercementLevel","error_id=? and vehicle_id=?",new String[]{String.valueOf(amercementLevel.getError_id()),String.valueOf(amercementLevel.getVehical())});
     }
 
 

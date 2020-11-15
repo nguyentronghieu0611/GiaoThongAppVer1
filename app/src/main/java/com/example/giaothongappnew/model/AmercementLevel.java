@@ -2,12 +2,12 @@ package com.example.giaothongappnew.model;
 
 public class AmercementLevel {
     private int error_id;
-    private String vehical;
+    private int vehical_id;
     private String amercement;
 
-    public AmercementLevel(int error_id, String vehical, String amercement) {
+    public AmercementLevel(int error_id, int vehical_id, String amercement) {
         this.error_id = error_id;
-        this.vehical = vehical;
+        this.vehical_id = vehical_id;
         this.amercement = amercement;
     }
 
@@ -19,12 +19,12 @@ public class AmercementLevel {
         this.error_id = error_id;
     }
 
-    public String getVehical() {
-        return vehical;
+    public int getVehical() {
+        return vehical_id;
     }
 
-    public void setVehical(String vehical) {
-        this.vehical = vehical;
+    public void setVehical(int vehical_id) {
+        this.vehical_id = vehical_id;
     }
 
     public String getAmercement() {

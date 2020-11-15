@@ -6,15 +6,53 @@
     android:layout_height="match_parent"
     android:id="@+id/home_container"
     android:background="@drawable/gradient"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     tools:context=".ui.home.HomeFragment">
 
+    <EditText
+        android:drawableRight="@drawable/ic_baseline_clear_24"
+        android:paddingLeft="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnSearch"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Tìm kiếm..."
+        android:id="@+id/edtSearch"/>
+    <ImageView
+        app:layout_constraintTop_toTopOf="@id/edtSearch"
+        app:layout_constraintBottom_toBottomOf="@id/edtSearch"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/btnSearch"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_search_24"/>
     <ListView
+        android:layout_marginRight="5dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtSearch"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="visible"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dip"
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"/>
+    <ListView
+        android:padding="5dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="@color/hint"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtSearch"
+        android:visibility="gone"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dip"
+        android:id="@+id/lvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:background="@drawable/ic_baseline_add_circle_24"

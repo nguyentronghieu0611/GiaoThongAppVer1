@@ -25,12 +25,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.example.giaothongappnew.R;
 import com.example.giaothongappnew.config.TrafficDatabase;
 import com.example.giaothongappnew.model.DataChange;
 import com.example.giaothongappnew.model.Error;
+import com.example.giaothongappnew.ui.amercement.AmercementFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -44,7 +46,7 @@ public class ErrorFragment extends Fragment {
     CircleImageView imgAvatar;
     CircleImageView txtIcon;
     Error error=null;
-    private Button btnSave,btnDelete;
+    private Button btnSave,btnDelete,btnAmercement;
     private byte[] image;
     EditText edtName, edtDescription;
     TrafficDatabase db;
@@ -128,6 +130,20 @@ public class ErrorFragment extends Fragment {
                     Toast.makeText(getContext(),"Thất bại",Toast.LENGTH_SHORT).show();
             }
         });
+
+        btnAmercement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(error!=null){
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    AmercementFragment amercementFragment = new AmercementFragment(db,error.getId());
+                    amercementFragment.show(fm, null);
+                }
+                else
+                    Toast.makeText(getContext(),"Vui lòng thêm lỗi trước!",Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void initControl(final View view) {
@@ -137,6 +153,7 @@ public class ErrorFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         assert actionBar != null;
         imgAvatar = view.findViewById(R.id.imgAvatar);
+        btnAmercement = view.findViewById(R.id.btnAmercement);
         btnDelete = view.findViewById(R.id.btnDelete);
         txtIcon = view.findViewById(R.id.txtIcon);
         layoutFrame = view.findViewById(R.id.layoutLeft);

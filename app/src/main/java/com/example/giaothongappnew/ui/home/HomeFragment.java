@@ -5,11 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -21,12 +24,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.giaothongappnew.R;
+import com.example.giaothongappnew.adapter.SearhHistoryAdapter;
 import com.example.giaothongappnew.model.DataChange;
 import com.example.giaothongappnew.model.Error;
 import com.example.giaothongappnew.adapter.ErrorAdapter;
 import com.example.giaothongappnew.common.Utils;
 import com.example.giaothongappnew.config.TrafficDatabase;
-import com.example.giaothongappnew.ui.error.ErrorFragment;
+import com.example.giaothongappnew.model.SearchHistory;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -35,10 +39,13 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment implements DataChange {
+    EditText edtSearch;
     Button btnAdd;
+    ImageView btnSearch;
     TrafficDatabase db;
     ListView lvError, lvSearchHistory;
     List<Error> listError = new ArrayList<>();
+    List<SearchHistory> historyList = new ArrayList<>();
     FragmentManager fragmentManager;
     FrameLayout layoutHistory;
     private Snackbar snackbar;
@@ -64,6 +71,9 @@ public class HomeFragment extends Fragment implements DataChange {
     }
 
     private void initControl(View view){
+        lvSearchHistory = view.findViewById(R.id.lvHistory);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        edtSearch = view.findViewById(R.id.edtSearch);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         btnAdd = view.findViewById(R.id.btnAdd);
         layout = view.findViewById(R.id.home_container);
@@ -102,8 +112,94 @@ public class HomeFragment extends Fragment implements DataChange {
             }
         });
 
+        edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    initSearch(true,edtSearch.getText().toString());
+                }
+                else{
+                    initSearch(false,"");
+                }
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(edtSearch.hasFocus()){
+                    edtSearch.clearFocus();
+                }
+                else{
+                    edtSearch.requestFocus();
+                }
+                initSearch(true, edtSearch.getText().toString());
+            }
+        });
+
+        lvSearchHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                edtSearch.setText(historyList.get(position).getSearch_txt());
+                initSearch(true,historyList.get(position).getSearch_txt());
+                lvSearchHistory.setVisibility(View.GONE);
+            }
+        });
 
 
+        edtSearch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        if(edtSearch.getText().toString().isEmpty()){
+                            Utils.forceHide(getActivity(),edtSearch);
+                            edtSearch.clearFocus();
+                        }
+                        else {
+                            edtSearch.setText("");
+                            initSearch(true,"");
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    private void initSearch(boolean isSearch,String searchText){
+        if(isSearch && searchText.isEmpty()){
+            historyList = db.getHistory(user_id);
+            if(historyList.size()>0){
+                lvSearchHistory.setAdapter(new SearhHistoryAdapter(historyList,getContext(),db));
+                lvSearchHistory.setVisibility(View.VISIBLE);
+            }
+            else
+                lvSearchHistory.setVisibility(View.GONE);
+            listError = db.getError();
+            lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db));
+        }
+        else if(isSearch && !searchText.isEmpty()){
+            db.insertHistory(new SearchHistory(user_id,searchText));
+            historyList = db.getHistory(user_id);
+            if(historyList.size()>0){
+                lvSearchHistory.setAdapter(new SearhHistoryAdapter(historyList,getContext(),db));
+                lvSearchHistory.setVisibility(View.GONE);
+            }
+            else
+                lvSearchHistory.setVisibility(View.GONE);
+            listError = db.searchError(searchText);
+            lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db));
+        }
+        else
+            lvSearchHistory.setVisibility(View.GONE);
     }
 
     private void initDefaultData(){
