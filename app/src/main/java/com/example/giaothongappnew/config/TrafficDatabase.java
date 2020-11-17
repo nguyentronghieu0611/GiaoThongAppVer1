@@ -254,4 +254,28 @@ public class TrafficDatabase extends SQLiteOpenHelper implements Serializable {
         values.put("time", markUser.getTime());
         return sqLiteDatabase.insert("tblMarkUser", null, values);
     }
+
+    public List<MarkUser> getMarkUser(int user_id1){
+        List<MarkUser> listRs = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor c = sqLiteDatabase.rawQuery("Select a.user_id, a.error_id,b.name,a.time,c.name from tblMarkUser a, tblUser b, tblError c where a.user_id = b.id and a.error_id = c.id and a.user_id = ?", new String[]{String.valueOf(user_id1)});
+        MarkUser obj;
+        if(c.moveToFirst()){
+            do{
+                int user_id = c.getInt(0);
+                int error_id = c.getInt(1);
+                String name = c.getString(2);
+                String time = c.getString(3);
+                String error_name = c.getString(4);
+                obj = new MarkUser(user_id,error_id,name,time,error_name);
+                listRs.add(obj);
+            }while (c.moveToNext());
+        }
+        return listRs;
+    }
+
+    public long deleteMarkUser(int user_id, int error_id){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        return sqLiteDatabase.delete("tblMarkUser","user_id=? and error_id=?",new String[]{String.valueOf(user_id),String.valueOf(error_id)});
+    }
 }

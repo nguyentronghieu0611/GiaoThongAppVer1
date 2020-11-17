@@ -22,6 +22,31 @@
         app:layout_constraintBottom_toBottomOf="parent">
         <View style="@style/Divider"/>
         <LinearLayout
+            android:id="@+id/layoutMarkError"
+            android:padding="5dp"
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_bookmark_24"/>
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_weight="8"
+                android:textSize="22sp"
+                android:text="Danh sách lỗi đã lưu"
+                android:layout_width="0dp"
+                android:layout_height="40dp"/>
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_chevron_right_24"/>
+        </LinearLayout>
+        <View style="@style/Divider"/>
+        <LinearLayout
             android:id="@+id/layoutInfo"
             android:padding="5dp"
             android:weightSum="10"

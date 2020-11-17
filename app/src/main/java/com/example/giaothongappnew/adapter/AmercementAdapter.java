@@ -20,7 +20,9 @@ import com.example.giaothongappnew.common.Utils;
 import com.example.giaothongappnew.config.TrafficDatabase;
 import com.example.giaothongappnew.model.AmercementLevel;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -73,7 +75,11 @@ public class AmercementAdapter extends BaseAdapter {
             holder = (AmercementAdapter.ViewHolder) convertView.getTag();
         final AmercementLevel amercementLevel = amercementLevelList.get(position);
         holder.txtVehicle.setText(Utils.getVehicle(amercementLevel.getVehical()));
-        holder.txtAmercement.setText(amercementLevel.getAmercement()+" vnđ");
+        NumberFormat nf = NumberFormat.getInstance(new Locale("da", "DK"));
+        nf.setMinimumFractionDigits(0);
+        nf.setMaximumFractionDigits(0);
+        String rs = nf.format(Long.valueOf(amercementLevel.getAmercement()));
+        holder.txtAmercement.setText(rs+" đ");
         switch (amercementLevel.getVehical()){
             case 0:
                 Glide.with(context).load(context.getDrawable(R.drawable.bycicle)).centerCrop().into(holder.imageView);

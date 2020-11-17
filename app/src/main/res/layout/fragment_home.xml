@@ -48,8 +48,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtSearch"
         android:visibility="gone"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="8dip"
         android:id="@+id/lvHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

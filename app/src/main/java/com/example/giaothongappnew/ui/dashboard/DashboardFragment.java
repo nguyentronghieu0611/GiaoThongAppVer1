@@ -20,11 +20,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.giaothongappnew.ChangePasswordActivity;
 import com.example.giaothongappnew.LoginActivity;
+import com.example.giaothongappnew.MarkErrorActivity;
 import com.example.giaothongappnew.R;
 import com.example.giaothongappnew.UserInfoActivity;
 
 public class DashboardFragment extends Fragment {
-    LinearLayout layoutInfo, layoutChangePass, layoutLogout, layoutExit;
+    LinearLayout layoutInfo, layoutChangePass, layoutLogout, layoutExit, layoutMarkError;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
@@ -38,9 +39,17 @@ public class DashboardFragment extends Fragment {
         layoutChangePass = view.findViewById(R.id.layoutChangePass);
         layoutLogout = view.findViewById(R.id.layoutLogout);
         layoutExit = view.findViewById(R.id.layoutExit);
+        layoutMarkError = view.findViewById(R.id.layoutMarkError);
     }
 
     private void bindEvent(){
+        layoutMarkError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MarkErrorActivity.class));
+            }
+        });
+
         layoutInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

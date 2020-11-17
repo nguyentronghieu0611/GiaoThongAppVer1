@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment implements DataChange {
         db = new TrafficDatabase(getContext());
         initDefaultData();
         listError = db.getError();
-        lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db));
+        lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db,user_id));
     }
 
     private void bindEvent(){
@@ -184,7 +184,7 @@ public class HomeFragment extends Fragment implements DataChange {
             else
                 lvSearchHistory.setVisibility(View.GONE);
             listError = db.getError();
-            lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db));
+            lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db,user_id));
         }
         else if(isSearch && !searchText.isEmpty()){
             db.insertHistory(new SearchHistory(user_id,searchText));
@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment implements DataChange {
             else
                 lvSearchHistory.setVisibility(View.GONE);
             listError = db.searchError(searchText);
-            lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db));
+            lvError.setAdapter(new ErrorAdapter(listError,getContext(),fragmentManager,db,user_id));
         }
         else
             lvSearchHistory.setVisibility(View.GONE);
